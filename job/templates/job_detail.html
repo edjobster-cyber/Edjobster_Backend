@@ -1,0 +1,60 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{ job.Create_Job.title }} - {{ job.Create_Job.owner.name }}</title>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    "title": "{{ job.Create_Job.title|escapejs }}",
+    "description": "{{ job.Description_Information.description.job_description|striptags|escapejs }}",
+    "identifier": {
+      "@type": "PropertyValue",
+      "name": "{{ job.Create_Job.owner.name|escapejs }}",
+      "value": "{{ job.id }}"
+    },
+    "datePosted": "{{ job.created|date:'Y-m-d' }}",
+    "validThrough": "{% if job.targetdate %}{{ job.targetdate|date:'Y-m-d\\TH:i:s' }}{% else %}{{ job.created|date:'Y-m-d\\TH:i:s' }}{% endif %}",
+    "employmentType": "{% if job.Create_Job.type == 'Full Time' %}FULL_TIME{% elif job.Create_Job.type == 'Part Time' %}PART_TIME{% else %}CONTRACTOR{% endif %}",
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": "{{ job.Create_Job.owner.name|escapejs }}",
+      "sameAs": "https://jobs.edjobster.com",
+      "logo": "https://jobs.edjobster.com/static/images/logo.png"
+    },
+    "jobLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "{{ job.Address_Information.city.name|escapejs }}",
+        "addressRegion": "{{ job.Address_Information.state.name|escapejs }}",
+        "addressCountry": "IN"
+      }
+    },
+    "baseSalary": {
+      "@type": "MonetaryAmount",
+      "currency": "{{ job.Create_Job.currency|default:'INR' }}",
+      "value": {
+        "@type": "QuantitativeValue",
+        "minValue": {{ job.Create_Job.salary_min|default:0 }},
+        "maxValue": {{ job.Create_Job.salary_max|default:0 }},
+        "unitText": "{% if job.Create_Job.salary_type == 'Daily' %}DAY{% elif job.Create_Job.salary_type == 'Weekly' %}WEEK{% elif job.Create_Job.salary_type == 'Yearly' %}YEAR{% else %}MONTH{% endif %}"
+      }
+    }
+    {% if job.Create_Job.nature == 'Remote' %},
+    "jobLocationType": "TELECOMMUTE"
+    {% endif %},
+    "url": "{{ apply_url }}"
+  }
+  </script>
+</head>
+
+<body>
+  <h1>{{ job.Create_Job.title }}</h1>
+  <div>
+    {{ job.Description_Information.description.job_description|safe }}
+  </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Interview Scheduled: {{jobTitle}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; line-height: 1.6; color: #333333; }
+    .container { max-width: 600px; margin: 20px auto; padding: 0; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+    .header { background-color: #4a6fa5; color: white; padding: 20px; text-align: center; }
+    .content { padding: 30px; text-align: left; }
+    .footer { background-color: #f8f9fa; padding: 15px; text-align: center; font-size: 12px; color: #6c757d; border-top: 1px solid #e9ecef; }
+    .button-container { margin: 25px 0; text-align: center; }
+    .button { display: inline-block; padding: 12px 25px; margin: 0 5px 10px; background-color: #4a6fa5; color: white !important; text-decoration: none; border-radius: 4px; font-weight: 500; min-width: 180px; text-align: center; }
+    .button.accept { background-color: #28a745; }
+    .button.decline { background-color: #dc3545; }
+    .button.reschedule { background-color: #ffc107; color: #212529 !important; }
+    .details { background-color: #f8f9fa; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .detail-row { margin-bottom: 10px; display: flex; }
+    .detail-label { font-weight: 600; width: 150px; color: #495057; }
+    .detail-value { flex: 1; color: #212529; }
+    h1 { color: white; margin: 0; font-size: 24px; }
+    p { margin: 0 0 15px 0; }
+    a { color: #4a6fa5; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Interview Scheduled: {{jobTitle}}</h1>
+    </div>
+    <div class="content">
+      <p>Hi {{candidateName}},</p>
+      {% if isInterviewer %}
+      <p>You have been scheduled to interview {{candidateNames}} for "{{jobTitle}}".</p>
+      {% else %}
+      <p>Your interview for the role of "{{jobTitle}}" at {{companyName}} has been scheduled.</p>
+      {% endif %}
+      <div class="details">
+        <div class="detail-row">
+          <div class="detail-label">When:</div>
+          <div class="detail-value">{{startAt}}{% if endAt %} to {{endAt}}{% endif %}{% if timezone %} ({{timezone}}){% endif %}</div>
+        </div>
+        <div class="detail-row">
+          {% if isInterviewer %}
+          <div class="detail-label">Candidate(s):</div>
+          <div class="detail-value">{{candidateNames}}</div>
+          {% else %}
+          <div class="detail-label">Interviewer(s):</div>
+          <div class="detail-value">{{interviewerNames}}</div>
+          {% endif %}
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Mode:</div>
+          <div class="detail-value">{{mode}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Location/Link:</div>
+          <div class="detail-value">{% if meetingLink %}<a href="{{meetingLink}}">{{meetingLink}}</a>{% else %}-{% endif %}</div>
+        </div>
+      </div>
+      <p>Add to your calendar: <a href="{{icsUrl}}">Download .ics</a></p>
+      {% if headlessCandidateUrl %}
+      <p>Quick actions:</p>
+      {% comment %} <div class="button-container">
+        <a href="{{headlessCandidateUrl}}" class="button">Open Response Page</a>
+      </div> {% endcomment %}
+      <div class="button-container">
+        {% if headlessDeclineUrl %}<a href="{{headlessDeclineUrl}}" class="button decline">Decline</a>{% endif %}
+        {% if headlessAcceptUrl %}<a href="{{headlessAcceptUrl}}" class="button accept">Accept</a>{% endif %}
+        {% comment %} {% if headlessRescheduleUrl %}<a href="{{headlessRescheduleUrl}}" class="button reschedule">Request Reschedule</a>{% endif %} {% endcomment %}
+      </div>
+      {% endif %}
+      <p>If you need to reschedule, use this link: <a href="{{rescheduleUrl}}">Reschedule</a></p>
+      <p>For any questions, reply to this email.</p>
+      <p>Best regards,<br>{{companyName}} Team</p>
+    </div>
+    <div class="footer">
+      <p>&copy; {{year}} Edjobster</p>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Limit Reached - {{ feature_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: #dc3545;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+        .warning-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #dc3545;
+        }
+        .stat-item {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .stat-label {
+            font-weight: bold;
+            color: #666;
+        }
+        .stat-value {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 5px 5px;
+            font-size: 14px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚨 Credit Limit Reached</h1>
+        <p>{{ company_name }}</p>
+    </div>
+    
+    <div class="content">
+        <div class="warning-box">
+            <strong>⚠️ Urgent Action Required</strong><br>
+            Your credits for <strong>{{ feature_name }}</strong> have been completely exhausted. 
+            All operations for this feature will be suspended until you purchase more credits.
+        </div>
+        
+        <h2>Credit Usage Summary</h2>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Feature:</span> 
+                <span class="stat-value">{{ feature_name }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Credits:</span> 
+                <span class="stat-value">{{ total_credit }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Available Credits:</span> 
+                <span class="stat-value">{{ available_credit }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Usage:</span> 
+                <span class="stat-value">{{ usage_percentage }}%</span>
+            </div>
+        </div>
+        
+        <h3>What happens next?</h3>
+        <ul>
+            <li>All {{ feature_name }} operations are now suspended</li>
+            <li>Your team will be unable to use this feature</li>
+            <li>No automatic deductions will occur</li>
+        </ul>
+        
+        <h3>Recommended Actions</h3>
+        <p>To restore service for {{ feature_name }}, please:</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="#" class="btn btn-danger">Purchase Credits Now</a>
+            <a href="#" class="btn">View Credit Usage</a>
+        </div>
+        
+        <p><strong>Note:</strong> You can set up automatic credit top-ups to avoid service interruptions in the future.</p>
+    </div>
+    
+    <div class="footer">
+        <p>EdJobster Credit Management System</p>
+        <p>This is an automated notification. Please do not reply to this email.</p>
+        <p>For support, contact our team at support@edjobster.com</p>
+    </div>
+</body>
+</html>

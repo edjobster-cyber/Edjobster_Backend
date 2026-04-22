@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to EdJobster - Complete Your Registration</title>
+</head>
+<body style="margin:0;padding:20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background-color:#f4f7fa;line-height:1.6;">
+  <div style="max-width:600px;margin:0 auto;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+    
+    <!-- Header Section -->
+    <div style="background-color:#f7fafc;padding:40px 30px;text-align:center;position:relative;">
+      <div style="max-width:250px;height:auto;padding:10px;display:inline-block;">
+        <img src="https://api.edjobster.com/media/edjobster09.png" alt="EdJobster Logo" style="width:100%;height:auto;display:block;" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'color:#3b5998;font-size:28px;font-weight:bold;letter-spacing:1px;\'>EdJobster</div>';">
+      </div>
+      <div style="background-color:#ffffff;color:#3b5998;padding:8px 20px;border-radius:20px;display:inline-block;position:absolute;top:50px;right:30px;font-weight:600;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">🎉 Welcome Aboard!</div>
+    </div>
+
+    <!-- Body Content -->
+    <div style="padding:40px 30px;color:#333333;">
+      <div style="font-size:24px;margin-bottom:15px;color:#2d3748;font-weight:600;">Hello {{ fullname }}! 👋</div>
+      <div style="font-size:16px;color:#718096;margin-bottom:25px;">Thank you for choosing EdJobster ATS</div>
+      <div style="font-size:16px;color:#4a5568;margin-bottom:20px;">We're excited to have you on board! Your account has been successfully created, and you're just one step away from transforming your hiring process.</div>
+
+      <!-- Account Information -->
+      <div style="background-color:#f7fafc;border-left:4px solid #3b5998;padding:20px;margin:25px 0;border-radius:4px;">
+        <div style="margin-bottom:12px;">
+          <span style="font-weight:600;color:#2d3748;min-width:120px;display:inline-block;">Full Name:</span>
+          <span style="color:#4a5568;">{{fullname}}</span>
+        </div>
+        <div style="margin-bottom:12px;">
+          <span style="font-weight:600;color:#2d3748;min-width:120px;display:inline-block;">Email:</span>
+          <span style="color:#4a5568;">{{user_email}}</span>
+        </div>
+        <div style="margin-bottom:12px;">
+          <span style="font-weight:600;color:#2d3748;min-width:120px;display:inline-block;">Company:</span>
+          <span style="color:#4a5568;">{{company_name}}</span>
+        </div>
+        <div>
+          <span style="font-weight:600;color:#2d3748;min-width:120px;display:inline-block;">Designation:</span>
+          <span style="color:#4a5568;">{{designation}}</span>
+        </div>
+      </div>
+
+      <!-- Trial Period Highlight -->
+      <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#ffffff;padding:20px;border-radius:8px;text-align:center;margin:25px 0;">
+        <div style="font-size:18px;font-weight:600;margin-bottom:8px;">🚀 Your 14-Day Free Trial Starts Now!</div>
+        <div style="font-size:14px;opacity:0.95;">Explore all premium features with no credit card required</div>
+      </div>
+
+      <!-- Getting Started Steps -->
+      <div style="margin:30px 0;">
+        <div style="font-size:18px;font-weight:600;color:#2d3748;margin-bottom:20px;">Getting Started is Easy:</div>
+        <div style="display:flex;margin-bottom:20px;align-items:flex-start;">
+          <div style="background:linear-gradient(135deg,#3b5998 0%,#e74c3c 100%);color:#ffffff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex-shrink:0;margin-right:15px;">1</div>
+          <div style="flex:1;padding-top:4px;font-size:15px;color:#4a5568;">Click the button below to create your secure password</div>
+        </div>
+        <div style="display:flex;margin-bottom:20px;align-items:flex-start;">
+          <div style="background:linear-gradient(135deg,#3b5998 0%,#e74c3c 100%);color:#ffffff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex-shrink:0;margin-right:15px;">2</div>
+          <div style="flex:1;padding-top:4px;font-size:15px;color:#4a5568;">Set a strong password (minimum 8 characters)</div>
+        </div>
+        <div style="display:flex;margin-bottom:20px;align-items:flex-start;">
+          <div style="background:linear-gradient(135deg,#3b5998 0%,#e74c3c 100%);color:#ffffff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex-shrink:0;margin-right:15px;">3</div>
+          <div style="flex:1;padding-top:4px;font-size:15px;color:#4a5568;">Login with your email (<strong>{{user_email}}</strong>) and new password</div>
+        </div>
+        <div style="display:flex;margin-bottom:20px;align-items:flex-start;">
+          <div style="background:linear-gradient(135deg,#3b5998 0%,#e74c3c 100%);color:#ffffff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex-shrink:0;margin-right:15px;">4</div>
+          <div style="flex:1;padding-top:4px;font-size:15px;color:#4a5568;">Start managing your recruitment process efficiently!</div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div style="text-align:center;margin:35px 0 25px 0;">
+        <a href="{{ verification_link }}" style="display:inline-block;padding:16px 40px;background:linear-gradient(135deg,#3b5998 0%,#e74c3c 100%);color:#ffffff;text-decoration:none;border-radius:6px;font-weight:600;font-size:16px;box-shadow:0 4px 12px rgba(59,89,152,0.3);">Create Your Password</a>
+      </div>
+      <div style="text-align:center;font-size:13px;color:#718096;margin-top:15px;">⏰ This link will expire in 24 hours for security reasons</div>
+
+      <!-- Support Box -->
+      <div style="background-color:#fffaf0;border:1px solid #fbd38d;padding:20px;border-radius:6px;margin:25px 0;">
+        <div style="font-weight:600;color:#744210;margin-bottom:8px;font-size:15px;">Need Help?</div>
+        <div style="font-size:14px;color:#975a16;">Our support team is here for you! Contact us at 
+          <a href="mailto:{{ support_email }}" style="color:#3b5998;text-decoration:none;font-weight:600;">{{ support_email }}</a> 
+          or visit our <a href="{{ help_center_url }}" style="color:#3b5998;text-decoration:none;font-weight:600;">Help Center</a>.
+        </div>
+      </div>
+
+      <div style="font-size:16px;color:#4a5568;margin-bottom:20px;">We can't wait to see how EdJobster helps you streamline your hiring process and find the perfect candidates faster!</div>
+    </div>
+
+    <!-- Footer Section -->
+    <div style="background-color:#2d3748;color:#cbd5e0;padding:35px 30px;">
+      <div style="text-align:center;">
+        <div style="font-size:18px;font-weight:600;color:#ffffff;margin-bottom:15px;">EdJobster</div>
+        <div style="font-size:13px;color:#a0aec0;margin-bottom:20px;">Smart Hiring, Simplified</div>
+        <div style="height:1px;background-color:#4a5568;margin:25px 0;"></div>
+
+        <!-- Social Media -->
+        <div style="margin:20px 0;">
+          <div style="font-size:14px;margin-bottom:12px;color:#e2e8f0;">Connect with us:</div>
+          <div style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap;">
+            
+            <a href="https://www.linkedin.com/company/edjobster/posts/?feedView=all" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background-color:#4a5568;border-radius:50%;text-decoration:none;overflow:hidden;">
+             <img src="https://img.freepik.com/premium-vector/round-linkedin-logo-isolated-white-background_469489-985.jpg?semt=ais_incoming&w=740&q=80" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
+            </a>
+            
+            <a href="https://x.com/edjobster" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background-color:#4a5568;border-radius:50%;text-decoration:none;overflow:hidden;">
+              <img src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?semt=ais_incoming&w=740&q=80" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
+            </a>
+            
+            <a href="https://www.facebook.com/edjobster/" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background-color:#4a5568;border-radius:50%;text-decoration:none;overflow:hidden;">
+              <img src="https://play-lh.googleusercontent.com/KCMTYuiTrKom4Vyf0G4foetVOwhKWzNbHWumV73IXexAIy5TTgZipL52WTt8ICL-oIo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
+            </a>
+
+            <a href="https://www.instagram.com/edjobster/" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background-color:#4a5568;border-radius:50%;text-decoration:none;overflow:hidden;">
+              <img src="https://img.freepik.com/premium-vector/instagram-logo-with-colorful-gradient_1273375-1516.jpg?semt=ais_incoming&w=740&q=80" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
+            </a>
+
+            <a href="https://www.youtube.com/@edjobster" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background-color:#4a5568;border-radius:50%;text-decoration:none;overflow:hidden;">
+              <img src="https://img.freepik.com/premium-vector/round-youtube-logo-isolated-white-background_469489-983.jpg?semt=ais_incoming&w=740&q=80" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;"/>
+            </a>
+          </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div style="margin:20px 0;">
+          <a href="{{ privacy_policy_url }}" style="color:#a0aec0;text-decoration:none;font-size:13px;margin:0 10px;">Privacy Policy</a>
+          <span style="color:#4a5568;">|</span>
+          <a href="{{ terms_url }}" style="color:#a0aec0;text-decoration:none;font-size:13px;margin:0 10px;">Terms of Service</a>
+          <span style="color:#4a5568;">|</span>
+          <a href="{{ help_center_url }}" style="color:#a0aec0;text-decoration:none;font-size:13px;margin:0 10px;">Help Center</a>
+        </div>
+
+        <div style="font-size:12px;color:#718096;margin-top:20px;">© {{ current_year }} EdJobster. All rights reserved.</div>
+        <div style="font-size:11px;color:#718096;line-height:1.5;margin-top:15px;padding-top:15px;border-top:1px solid #4a5568;">
+          <strong>Important:</strong> This email was sent to {{ user_email }} because you signed up for EdJobster ATS. 
+          If you did not create this account, please contact us immediately at {{ support_email }}. 
+          This is an automated message, please do not reply to this email.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

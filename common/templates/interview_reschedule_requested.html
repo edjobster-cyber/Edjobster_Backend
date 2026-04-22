@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+  }
+  .header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  .content {
+    padding: 20px;
+    text-align: left;
+  }
+  .footer {
+    background-color: #eeeeee;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .info-box {
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 15px;
+    margin: 15px 0;
+  }
+  .info-item {
+    margin: 8px 0;
+  }
+  .label {
+    font-weight: bold;
+    color: #333;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Interview Reschedule Request</h1>
+    </div>
+    <div class="content">
+      <p>Dear {{candidate_name}},</p>
+      
+      <p>An interview reschedule has been requested. Here are the details:</p>
+      
+      <div class="info-box">
+        <div class="info-item">
+          <span class="label">Job Title:</span> {{job_title}}
+        </div>
+        <div class="info-item">
+          <span class="label">Company:</span> {{company_name}}
+        </div>
+        {% if interview_title %}
+        <div class="info-item">
+          <span class="label">Interview Title:</span> {{interview_title}}
+        </div>
+        {% endif %}
+        {% if scheduled_date %}
+        <div class="info-item">
+          <span class="label">Originally Scheduled:</span> {{scheduled_date}} at {{scheduled_time}}
+        </div>
+        {% endif %}
+        {% if cancellation_reason %}
+        <div class="info-item">
+          <span class="label">Request Details:</span> {{cancellation_reason}}
+        </div>
+        {% endif %}
+      </div>
+      
+      <p>Please review this request and respond at your earliest convenience. If you have any questions, please contact us at {{contact_email}}.</p>
+      
+      <p>Thank you.</p>
+      
+      <p>Best regards,<br>
+      The {{company_name}} Team</p>
+    </div>
+    <div class="footer">
+      &copy; 2024 {{company_name}}. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

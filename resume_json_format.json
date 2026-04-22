@@ -1,0 +1,95 @@
+{
+    "ResumeFileName": "",
+    "Name": {
+        "FullName": "",
+        "FirstName": "",
+        "MiddleName": "",
+        "LastName": ""
+    },
+    "DateOfBirth": "",
+    "Gender": "",
+    "MaritalStatus": "",
+    "YearsOfExperience": "",
+    "HighestQualification": "",
+    "CurrentlyWorking": "",
+    "ProfessionalStartDate": "",
+    "ProfessionalEndDate": "",
+    "CurrentJobTitle": "",
+    "ProfessionalDegree": "",
+    "FunctionalArea": "",
+    "NoticePeriod": "",
+    "SalaryCurrency": "",
+    "Email": [
+        {
+            "EmailAddress": ""        
+        }
+    ],
+    "PhoneNumber": [
+        {
+            "FormattedNumber": ""
+        }
+    ],
+    "Address": [
+        {
+            "Street": "",
+            "City": "",
+            "State": "",
+            "Country": "",
+            "ZipCode": "",
+            "FormattedAddress": ""
+        }
+    ],
+    "CurrentSalary": {
+        "Amount": "",
+        "Currency": ""
+    },
+    "ExpectedSalary": {
+        "Amount": "",
+        "Currency": ""
+    },
+    "Qualification": "",
+    "SegregatedQualification": [
+        {
+            "Institution": {
+                "Name": ""
+            },
+            "Degree": {
+                "DegreeName": "",
+                "Specialization": [
+                    ""
+                ]
+            },
+            "StartDate": "",
+            "EndDate": ""
+        }
+    ],
+    "Certification": "",
+    "ProfessionalCertificate": "",
+    "SegregatedSkill": [
+        {   
+            "Skill": ""
+        }
+    ],
+    "Experience": "",
+    "Subject": "",
+    "CurriculumBoard": "",
+    "SegregatedExperience": [
+        {
+            "Employer": {
+                "EmployerName": ""
+            },
+            "JobProfile": {
+                "FormattedName": ""
+            },
+            "JobPeriod": "",
+            "FormattedJobPeriod": "",
+            "StartDate": "",
+            "EndDate": "",
+            "IsCurrentEmployer": "",
+            "JobDescription": ""
+        }
+    ],
+    "CurrentEmployer": "",
+    "JobProfile": "",
+    "Summary": ""
+}

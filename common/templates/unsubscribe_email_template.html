@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Unsubscribe Template</title>
+<style>
+    /* Basic styles for email clients */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+    .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+    }
+    .header {
+        text-align: center;
+        padding: 10px 0;
+    }
+    .header img {
+        max-width: 150px;
+    }
+    .content {
+        padding: 20px;
+        text-align: center;
+    }
+    .content h1 {
+        color: #333333;
+    }
+    .content p {
+        color: #666666;
+        line-height: 1.5;
+    }
+    .button-container {
+        text-align: center;
+        padding: 20px 0;
+    }
+    .button {
+        background-color: #ff4d4d;
+        color: #ffffff;
+        padding: 15px 25px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 12px;
+        color: #999999;
+    }
+</style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <!-- Replace with Edjobster.com logo URL -->
+            <img src="/static/vendor/edjobster09.png" alt="Logo">
+        </div>
+        <div class="content">
+            <h1>Sorry to see you go!</h1>
+            <p>We've received a request to unsubscribe this email address from future Edjobster.com communications.</p>
+            <p>To confirm your unsubscription, please click the button below. You will no longer receive our newsletters and promotional emails.</p>
+        </div>
+        <div class="button-container">
+            <!-- Replace with the actual unsubscribe link -->
+            <a href="{{unsubscribe_link}}" class="button">Confirm Unsubscribe</a>
+        </div>
+        <div class="content">
+            <p>If you received this email by mistake, or if you did not request to unsubscribe, please disregard this message. No action will be taken.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2025 Edjobster.com. All rights reserved.</p>
+            <p>123 Job Lane, Employment City, EC 45678</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  {% comment %} <title>Candidate Mail</title> {% endcomment %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+  }
+  .header {
+    background-color: #009688;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  .content {
+    padding: 20px;
+    text-align: center;
+  }
+  .footer {
+    background-color: #eeeeee;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: #009688;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Interview Mail</h1>
+    </div>
+    <div class="content">
+      {{ formatted_body|safe }}
+    </div>
+    <div class="footer">
+      &copy; 2024 Your Company. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

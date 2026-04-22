@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedback Reminder</title>
+    <style>
+      body { font-family: Arial, Helvetica, sans-serif; background:#f7f7f8; margin:0; padding:24px; color:#111827; }
+      .card { max-width: 640px; margin: 0 auto; background: #ffffff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
+      .header { background:#111827; color:#fff; padding:16px 20px; font-size:18px; font-weight:600; }
+      .content { padding: 20px; line-height:1.6; }
+      .row { margin: 8px 0; }
+      .label { color:#6b7280; min-width: 140px; display:inline-block; }
+      .value { color:#111827; font-weight:600; }
+      .cta { margin: 24px 0 8px; }
+      .btn { display:inline-block; background:#2563eb; color:#fff !important; padding:12px 18px; border-radius:8px; text-decoration:none; font-weight:600; }
+      .btn:hover { background:#1d4ed8; }
+      .footer { padding: 16px 20px; font-size:12px; color:#6b7280; background:#f3f4f6; }
+      .muted { color:#6b7280; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">Feedback requested</div>
+      <div class="content">
+        <p>Hello,</p>
+        <p>The interview has just concluded. Please submit your feedback.</p>
+        <p>
+          If this interview is not complete, please click below to provide your feedback. {{ interview_not_done_url }}
+        </p>
+
+        
+
+        <div class="row"><span class="label">Title</span> <span class="value">{{ title }}</span></div>
+        <div class="row"><span class="label">Ended at</span> <span class="value">{{ end_time }}</span></div>
+        <div class="row"><span class="label">Company</span> <span class="value">{{ companyName|default:'Company' }}</span></div>
+
+        <div class="cta">
+          <a class="btn" href="{{ feedback_url }}" target="_blank" rel="noopener">Give Feedback</a>
+        </div>
+
+        <p class="muted">If the button does not work, copy and paste this link into your browser:</p>
+        <p class="muted">{{ feedback_url }}</p>
+
+        <p>Thank you,<br/>Edjobster Team</p>
+      </div>
+      <div class="footer">&copy; {{ year|default:2025 }} Edjobster</div>
+    </div>
+  </body>
+</html>

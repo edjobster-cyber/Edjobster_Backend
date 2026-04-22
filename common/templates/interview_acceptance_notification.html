@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Interview Acceptance Notification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; line-height: 1.6; color: #333333; }
+    .container { max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+    .header { background-color: #28a745; color: #ffffff; padding: 20px; text-align: center; }
+    .content { padding: 30px; }
+    .footer { background-color: #f8f9fa; padding: 15px; text-align: center; font-size: 12px; color: #6c757d; border-top: 1px solid #e9ecef; }
+    .details { background-color: #f8f9fa; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .detail-row { margin-bottom: 10px; display: flex; }
+    .detail-label { font-weight: 600; width: 150px; color: #495057; }
+    .detail-value { flex: 1; color: #212529; }
+    h1 { margin: 0; font-size: 24px; }
+    p { margin: 0 0 15px 0; }
+    .success-notice { background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 6px; padding: 15px; margin: 20px 0; color: #155724; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <div class="header">
+      <h1>Interview Accepted ✅</h1>
+    </div>
+
+    <div class="content">
+      <p>Hi,</p>
+
+      <div class="success-notice">
+        {% if notificationType == 'candidate_accepted' %}
+          <strong>{{ candidateName }}</strong> has accepted the interview for the position of <strong>"{{ jobTitle }}"</strong>.
+        {% elif notificationType == 'interviewer_accepted' %}
+          Interviewer <strong>{{ acceptorName }}</strong> has accepted the interview for <strong>"{{ jobTitle }}"</strong> with candidate <strong>{{ candidateName }}</strong>.
+        {% else %}
+          <strong>{{ acceptorName }}</strong> has accepted the interview for <strong>"{{ jobTitle }}"</strong>.
+        {% endif %}
+      </div>
+
+      <p><strong>Interview Details:</strong></p>
+
+      <div class="details">
+        <div class="detail-row">
+           {% if notificationType == 'candidate_accepted' %}
+          <div class="detail-label">Candidate:</div>
+          <div class="detail-value">{{ candidateName }}</div>
+        {% elif notificationType == 'interviewer_accepted' %}
+         <div class="detail-label">Candidate:</div>
+          <div class="detail-value">{{ candidateName }}</div>
+        {% else %}
+          <div class="detail-label">Candidate:</div>
+          <div class="detail-value">{{ candidateName }}</div>
+        {%endif%}
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Job Title:</div>
+          <div class="detail-value">{{ jobTitle }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Company:</div>
+          <div class="detail-value">{{ companyName }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Date:</div>
+          <div class="detail-value">{{ scheduledDate }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Time:</div>
+          <div class="detail-value">{{ scheduledTime }}</div>
+        </div>
+      </div>
+
+      <p>Please ensure all necessary preparations are completed for the scheduled interview.</p>
+
+      <p>Best regards,<br><strong>{{ companyName }} Team</strong></p>
+    </div>
+
+    <div class="footer">
+      <p>&copy; {{ year }} {{ companyName }}</p>
+    </div>
+
+  </div>
+</body>
+</html>

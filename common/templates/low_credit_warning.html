@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low Credit Warning - {{ feature_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: #ffc107;
+            color: #212529;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background: #f8f9fa;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .stat-item {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .stat-label {
+            font-weight: bold;
+            color: #666;
+        }
+        .stat-value {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #28a745, #ffc107, #dc3545);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .footer {
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 5px 5px;
+            font-size: 14px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .usage-indicator {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚠️ Low Credit Warning</h1>
+        <p>{{ company_name }}</p>
+    </div>
+    
+    <div class="content">
+        <div class="warning-box">
+            <strong>🔔 Credit Usage Alert</strong><br>
+            Your credits for <strong>{{ feature_name }}</strong> are running low. 
+            You have less than 10% of your total credits remaining. 
+            Consider purchasing more credits to avoid service interruption.
+        </div>
+        
+        <h2>Credit Usage Summary</h2>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Feature:</span> 
+                <span class="stat-value">{{ feature_name }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Total Credits:</span> 
+                <span class="stat-value">{{ total_credit }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Available Credits:</span> 
+                <span class="stat-value">{{ available_credit }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Usage:</span> 
+                <span class="stat-value">{{ usage_percentage }}%</span>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ usage_percentage }}%"></div>
+            </div>
+            
+            <div class="usage-indicator">
+                {% if usage_percentage >= 95 %}
+                    🔴 Critical: {{ available_credit }} credits left
+                {% elif usage_percentage >= 90 %}
+                    🟠 Very Low: {{ available_credit }} credits left
+                {% else %}
+                    🟡 Low: {{ available_credit }} credits left
+                {% endif %}
+            </div>
+        </div>
+        
+        <h3>What this means</h3>
+        <ul>
+            <li>You have used {{ usage_percentage }}% of your {{ feature_name }} credits</li>
+            <li>Only {{ available_credit }} credits remaining</li>
+            <li>Service will be suspended when credits reach 0</li>
+        </ul>
+        
+        <h3>Recommended Actions</h3>
+        <p>To ensure uninterrupted service for {{ feature_name }}:</p>
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="#" class="btn btn-warning">Top Up Credits</a>
+            <a href="#" class="btn">View Usage Report</a>
+        </div>
+        
+        <div style="background: #e7f3ff; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <strong>💡 Pro Tip:</strong> Set up automatic credit top-ups to receive notifications when credits drop below your preferred threshold and automatically purchase more to avoid service interruptions.
+        </div>
+        
+        <p><strong>Note:</strong> You will receive another notification when your credits are completely exhausted.</p>
+    </div>
+    
+    <div class="footer">
+        <p>EdJobster Credit Management System</p>
+        <p>This is an automated notification. Please do not reply to this email.</p>
+        <p>For support, contact our team at support@edjobster.com</p>
+    </div>
+</body>
+</html>

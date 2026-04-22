@@ -1,0 +1,25 @@
+.login-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.login-logo img {
+    max-width: 150px;  /* Adjust this value as needed */
+    max-height: 150px; /* Adjust this value as needed */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Center the entire login box */
+.login-box {
+    margin: 0 auto;
+    float: none;
+}
+
+/* Optional: Adjust the login form width if needed */
+.login-box, .register-box {
+    width: 400px;  /* Adjust this value as needed */
+}

@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Interview Accepted: {{jobTitle}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; line-height: 1.6; color: #333333; }
+    .container { max-width: 600px; margin: 20px auto; padding: 0; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+    .header { background-color: #28a745; color: #ffffff; padding: 20px; text-align: center; }
+    .content { padding: 30px; text-align: left; }
+    .footer { background-color: #f8f9fa; padding: 15px; text-align: center; font-size: 12px; color: #6c757d; border-top: 1px solid #e9ecef; }
+    .details { background-color: #f8f9fa; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .detail-row { margin-bottom: 10px; display: flex; }
+    .detail-label { font-weight: 600; width: 150px; color: #495057; }
+    .detail-value { flex: 1; color: #212529; }
+    h1 { color: #ffffff; margin: 0; font-size: 24px; }
+    p { margin: 0 0 15px 0; }
+    a { color: #4a6fa5; }
+    .success-notice { background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 6px; padding: 15px; margin: 20px 0; color: #155724; }
+    .button-container { margin: 25px 0; text-align: center; }
+    .button { display: inline-block; padding: 12px 25px; margin: 0 5px 10px; background-color: #28a745; color: white !important; text-decoration: none; border-radius: 4px; font-weight: 500; min-width: 180px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Interview Accepted</h1>
+    </div>
+    <div class="content">
+      <p>Hi {{candidateName}},</p>
+      
+      <div class="success-notice">
+        <strong>Confirmation:</strong> You have successfully accepted the interview for "{{jobTitle}}" at {{companyName}}.
+      </div>
+      
+      <p>Interview Details:</p>
+      <div class="details">
+        <div class="detail-row">
+          <div class="detail-label">Job Title:</div>
+          <div class="detail-value">{{jobTitle}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Company:</div>
+          <div class="detail-value">{{companyName}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Date:</div>
+          <div class="detail-value">{{scheduledDate}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Time:</div>
+          <div class="detail-value">{{scheduledTime}}</div>
+        </div>
+      </div>
+      
+      <div class="button-container">
+        <p><strong>Add this interview to your calendar:</strong></p>
+        <a href="{{icsUrl}}" class="button">Download .ics File</a>
+      </div>
+      
+      <p>Please make sure to join on time. If you need to reschedule, please contact 
+        {% if companyEmail %}
+          <a href="mailto:{{companyEmail}}">{{companyEmail}}</a>
+        {% else %}
+          the recruitment team
+        {% endif %}.
+      </p>
+      
+      <p>Best regards,<br>{{companyName}} Team</p>
+    </div>
+    <div class="footer">
+      <p>&copy; {{year}} {{companyName}}</p>
+    </div>
+  </div>
+</body>
+</html>

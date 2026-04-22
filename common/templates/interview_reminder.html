@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Interview Reminder: {{title}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; line-height: 1.6; color: #333333; }
+    .container { max-width: 600px; margin: 20px auto; padding: 0; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+    .header { background-color: #ffc107; color: #212529; padding: 20px; text-align: center; }
+    .content { padding: 30px; text-align: left; }
+    .footer { background-color: #f8f9fa; padding: 15px; text-align: center; font-size: 12px; color: #6c757d; border-top: 1px solid #e9ecef; }
+    .reminder-badge { background-color: #ffc107; color: #212529; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+    .details { background-color: #f8f9fa; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .detail-row { margin-bottom: 10px; display: flex; }
+    .detail-label { font-weight: 600; width: 150px; color: #495057; }
+    .detail-value { flex: 1; color: #212529; }
+    h1 { color: #212529; margin: 0; font-size: 24px; }
+    p { margin: 0 0 15px 0; }
+    a { color: #4a6fa5; }
+    .urgent { color: #dc3545; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Interview Reminder</h1>
+    </div>
+    <div class="content">
+      <div class="reminder-badge">REMINDER</div>
+      <p>Hi {{candidateName}},</p>
+      <p>You have an interview for the role of "{{jobTitle}}" at {{companyName}}.</p>
+      <div class="details">
+        <div class="detail-row">
+          <div class="detail-label">Title:</div>
+          <div class="detail-value">{{title}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Start Time:</div>
+          <div class="detail-value">{{start_time}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Mode:</div>
+          <div class="detail-value">{{mode}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Meeting Link:</div>
+          <div class="detail-value">{% if meeting_link %}<a href="{{meeting_link}}">{{meeting_link}}</a>{% else %}-{% endif %}</div>
+        </div>
+      </div>
+      <p class="urgent">Please ensure you're ready for your interview at the scheduled time.</p>
+      <p>For any questions, reply to this email.</p>
+      <p>Best regards,<br/>Edjobster Team</p>
+    </div>
+    <div class="footer">
+      <p>&copy; {{year}} Edjobster</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Interview Panel Updated: {{jobTitle}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; line-height: 1.6; color: #333333; }
+    .container { max-width: 600px; margin: 20px auto; padding: 0; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+    .header { background-color: #4a6fa5; color: #ffffff; padding: 20px; text-align: center; }
+    .header.added { background-color: #28a745; }
+    .header.removed { background-color: #dc3545; }
+    .content { padding: 30px; text-align: left; }
+    .footer { background-color: #f8f9fa; padding: 15px; text-align: center; font-size: 12px; color: #6c757d; border-top: 1px solid #e9ecef; }
+    .details { background-color: #f8f9fa; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .detail-row { margin-bottom: 10px; display: flex; }
+    .detail-label { font-weight: 600; width: 150px; color: #495057; }
+    .detail-value { flex: 1; color: #212529; }
+    h1 { color: #ffffff; margin: 0; font-size: 24px; }
+    p { margin: 0 0 15px 0; }
+    a { color: #4a6fa5; }
+    .panel-notice { background-color: #e7f3ff; border: 1px solid #b8daff; border-radius: 6px; padding: 15px; margin: 20px 0; color: #004085; }
+    .panel-notice.added { background-color: #d4edda; border-color: #c3e6cb; color: #155724; }
+    .panel-notice.removed { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; }
+    .interviewer-name { font-weight: bold; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header {% if changeType == 'added' %}added{% elif changeType == 'removed' %}removed{% endif %}">
+      <h1>
+        {% if changeType == 'added' %}
+          New Interviewer Added
+        {% elif changeType == 'removed' %}
+          Interviewer Removed
+        {% else %}
+          Interview Panel Updated
+        {% endif %}
+      </h1>
+    </div>
+    <div class="content">
+      <p>Hi {{candidateName}},</p>
+      
+      <div class="panel-notice {% if changeType == 'added' %}added{% elif changeType == 'removed' %}removed{% endif %}">
+        {% if changeType == 'added' %}
+          <strong>Panel Update:</strong> <span class="interviewer-name">{{changedInterviewerName}}</span> has been added to the interview panel for "{{jobTitle}}".
+        {% elif changeType == 'removed' %}
+          <strong>Panel Update:</strong> <span class="interviewer-name">{{changedInterviewerName}}</span> has been removed from the interview panel for "{{jobTitle}}".
+        {% else %}
+          <strong>Panel Update:</strong> The interview panel for "{{jobTitle}}" has been updated.
+        {% endif %}
+      </div>
+      
+      <p>Interview Details:</p>
+      <div class="details">
+        <div class="detail-row">
+          <div class="detail-label">Job Title:</div>
+          <div class="detail-value">{{jobTitle}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Interview:</div>
+          <div class="detail-value">{{interviewTitle}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Date:</div>
+          <div class="detail-value">{{scheduledDate}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Time:</div>
+          <div class="detail-value">{{scheduledTime}}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-label">Company:</div>
+          <div class="detail-value">{{companyName}}</div>
+        </div>
+      </div>
+      
+      {% if message %}
+      <p>{{message}}</p>
+      {% endif %}
+      
+      <p>No action is required from your side. The interview will proceed as scheduled.</p>
+      
+      <p>For any questions, please contact
+        {% if contactEmail %}
+          <a href="mailto:{{contactEmail}}">{{contactEmail}}</a>
+        {% else %}
+          the recruitment team
+        {% endif %}.
+      </p>
+      
+      <p>Best regards,<br>{{companyName}} Team</p>
+    </div>
+    <div class="footer">
+      <p>&copy; {% now "Y" %} Edjobster</p>
+    </div>
+  </div>
+</body>
+</html>

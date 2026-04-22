@@ -1,0 +1,1 @@
+web: gunicorn edjobster.wsgi --log-file -
