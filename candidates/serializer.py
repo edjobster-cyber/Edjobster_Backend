@@ -604,3 +604,8 @@ class CoresignalCandidateStatusSerializer(serializers.ModelSerializer):
     #         instance.coresignal_candidate_id = coresignal_candidate_id
     #         instance.save()
     #     return instance
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = '__all__'

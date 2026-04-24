@@ -37,4 +37,11 @@ CELERY_BEAT_SCHEDULE = {
             'expires': 60 * 30,  # Task expires after 30 minutes if not executed
         },
     },
+    'check-reminders-every-minute': {
+        'task': 'candidates.tasks.check_reminders_task',
+        'schedule': crontab(minute='*'),  # Run every minute
+        'options': {
+            'expires': 30.0,
+        },
+    },
 }

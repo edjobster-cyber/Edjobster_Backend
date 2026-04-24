@@ -16,13 +16,7 @@ import environ
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, True),
-    OPENAI_API_KEY=(str, ''),
-    GOOGLE_API_KEY=(str, ''),
-    GOOGLE_OAUTH_CLIENT_ID=(str, ''),
-    GOOGLE_OAUTH_CLIENT_SECRET=(str, ''),
-    ZOHO_CLIENT_ID=(str, ''),
-    ZOHO_CLIENT_SECRET=(str, ''),
-    ZOHO_REFRESH_TOKEN=(str, ''),
+    OPENAI_API_KEY=(str, '')
 )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -355,13 +349,7 @@ RESUME_PARSE_KEY = "NFSF6Y36"
 RESUME_PARSE_VERSION = "8.0.0"
 
 # OpenAI Settings
-OPENAI_API_KEY = env('OPENAI_API_KEY', default='')
-
-# Google Settings
-GOOGLE_API_KEY = env('GOOGLE_API_KEY', default='')
-GOOGLE_OAUTH_CLIENT_ID = env('GOOGLE_OAUTH_CLIENT_ID', default='')
-GOOGLE_OAUTH_CLIENT_SECRET = env('GOOGLE_OAUTH_CLIENT_SECRET', default='')
-
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
 if not OPENAI_API_KEY:
     logger.warning('OPENAI_API_KEY is not set. Resume parsing with AI will not work.')
 
@@ -463,9 +451,9 @@ RAZORPAY_TEST_MODE_KEY_ID = env('RAZORPAY_TEST_MODE_KEY_ID')
 RAZORPAY_TEST_MODE_KEY_SECRET = env('RAZORPAY_TEST_MODE_KEY_SECRET')
 RAZORPAY_MODE = env('RAZORPAY_MODE')
 
-ZOHO_CLIENT_ID = env("ZOHO_CLIENT_ID", default="")
-ZOHO_CLIENT_SECRET = env("ZOHO_CLIENT_SECRET", default="")
-ZOHO_REFRESH_TOKEN = env("ZOHO_REFRESH_TOKEN", default="")
+ZOHO_CLIENT_ID = "1000.ZI8CYW0THCD8C5Y5LQQSFJ11FW9PGQ"
+ZOHO_CLIENT_SECRET = "d478e3b78cfe798f4090d09f4081d68bba3ba8e8db"
+ZOHO_REFRESH_TOKEN = "1000.a00e33b6314f15077058eaffd13e4fec.3ef4b2fdb37c38dd31b5aa0a2a0a74ab"
 ZOHO_BASE_DOMAIN = "https://www.zohoapis.in"  # or .com / .eu
 ZOHO_ACCOUNTS_URL = "https://accounts.zoho.in"  # or .com / .eu
 

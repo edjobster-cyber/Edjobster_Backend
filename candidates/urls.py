@@ -96,6 +96,8 @@ urlpatterns = [
     path('corsignal-candidate-scrongin/<int:job_id>/<str:corsignal_id>/',views.CorsignalCandidateScrongin.as_view()),
     # path('ai-resume-match-upload/', views.AiResumeMatchUpload.as_view(), name='ai-resume-match-upload'),
 
+    path('notifications/', views.NotificationListView.as_view(), name='notification-list'),
+    path('notifications/<int:pk>/read/', views.MarkNotificationReadView.as_view(), name='mark-notification-read'),
 ]
 
 urlpatterns += static(settings.RESUME_URL, document_root=settings.RESUME_URL_ROOT)

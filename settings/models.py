@@ -324,7 +324,7 @@ class TemplateVariables(models.Model):
     id = models.AutoField(primary_key=True)
     company = models.ForeignKey(Company, default=None, null=False, verbose_name='Company', on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=True, blank=True, verbose_name='name')
-    variables = models.JSONField(null=True, blank=True, default={"candidate_names": [], "candidate_emails": []}, verbose_name='variable')
+    variables = models.JSONField(null=True, blank=True, default=dict, verbose_name='variable')
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
