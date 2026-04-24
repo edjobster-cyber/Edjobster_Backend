@@ -76,7 +76,6 @@ from django.utils import timezone
 from django.core.mail import send_mail
 import openai
 from django.db.models import Q
-from django.conf import settings
 # import google.genai as genai
 
 # API_KEY = "..." removed for security
@@ -3516,3 +3515,25 @@ class CorsignalCandidateScrongin(APIView):
         
 
 
+
+class NotificationListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        notifications = Notification.objects.filter(user=request.user).order_by('-created_at')[:20]
+        serializer = NotificationSerializer(notifications, many=True)
+        return Response(serializer.data)
+
+class MarkNotificationReadView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            notification = Notification.objects.get(pk=pk, user=request.user)
+            notification.is_read = True
+            notification.save()
+            return Response({"message": "Notification marked as read"})
+        except Notification.DoesNotExist:
+            return Response({"error": "Notification not found"}, status=status.HTTP_404_NOT_FOUND)
