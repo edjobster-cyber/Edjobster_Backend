@@ -445,7 +445,7 @@ def signInAccount(request):
     serialized_company = CompanySerializer(company)
     first_login = True if (getattr(user, 'last_login', None) is None and Account.TRIALUSER in user.role) else False
     needs_company_details = False
-    if not company.is_app_site and site == "is_app_site":
+    if company and not user.is_superuser and not company.is_app_site and site == "is_app_site":
         company.is_app_site = True
         company.save()
         try:
@@ -498,7 +498,7 @@ def signInAccount(request):
         except Exception as e:
             print(f"Error initializing app site billing: {str(e)}")
 
-    if not company.is_ai_letter_site and (site == "is_ai_letter_site" or site == "ai_letter_site"):
+    if company and not user.is_superuser and not company.is_ai_letter_site and (site == "is_ai_letter_site" or site == "ai_letter_site"):
         company.is_ai_letter_site = True
         company.save()
         try:
