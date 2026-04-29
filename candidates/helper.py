@@ -989,7 +989,7 @@ def getCandidates(request):
         candidates = Candidate.objects.all().order_by('-updated')
     else:
         # candidates = Candidate.objects.filter(job__company=company).distinct().order_by('-id')
-        candidates = Candidate.objects.filter(Q(job__company=company) | Q(company=company) | Q(updated__lte=today)).distinct().order_by('-updated')
+        candidates = Candidate.objects.filter((Q(job__company=company) | Q(company=company)) & Q(updated__date__lte=today.date())).distinct().order_by('-updated')
     
     # candidates = Paginator(candidates, PAGE_SIZE)
 
