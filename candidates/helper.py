@@ -984,7 +984,7 @@ def getCandidates(request):
     # except Exception as e:
     #     print(e)
     #     page_no = 1
-    today = timezone.now().date()
+    today = timezone.now()
     if user.is_superuser:
         candidates = Candidate.objects.all().order_by('-updated')
     else:

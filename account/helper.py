@@ -445,60 +445,61 @@ def signInAccount(request):
     serialized_company = CompanySerializer(company)
     first_login = True if (getattr(user, 'last_login', None) is None and Account.TRIALUSER in user.role) else False
     needs_company_details = False
-    if company and not user.is_superuser and not company.is_app_site and site == "is_app_site":
-        company.is_app_site = True
-        company.save()
-        try:
-            from settings.models import PlanPricing, Subscription, BilingHistory, PlanFeatureCredit, CreditWallet
-            free_plan_pricing = PlanPricing.objects.filter(price=0).first()
-            
-            if free_plan_pricing:
-                # Create subscription for the free plan
-                subscription = Subscription.objects.create(
-                    company=company,
-                    plan_pricing=free_plan_pricing,
-                    is_active=True,
-                    end_date=timezone.now() + timezone.timedelta(days=14)  # 14 days for free plan
-                )
+    if not user.is_superuser:
+        if not company.is_app_site and site == "is_app_site":
+            company.is_app_site = True
+            company.save()
+            try:
+                from settings.models import PlanPricing, Subscription, BilingHistory, PlanFeatureCredit, CreditWallet
+                free_plan_pricing = PlanPricing.objects.filter(price=0).first()
                 
-                # Create billing history for the free plan allocation
-                BilingHistory.objects.create(
-                    company=company,
-                    plan_pricing=free_plan_pricing,
-                    feature=None,
-                    transaction_type="plan_allocation",
-                    price=0,
-                    credit=None
-                )
-                
-                # Get all feature credits for the free plan
-                plan_features = PlanFeatureCredit.objects.filter(plan=free_plan_pricing.plan)
-                
-                # Update or create credit wallet entries for each feature
-                for plan_feature in plan_features:
-                    if plan_feature:
-                        CreditWallet.objects.update_or_create(
-                            company=company,
-                            feature=plan_feature.feature,
-                            defaults={
-                                'total_credit': plan_feature.credit_limit,
-                                'used_credit': 0,
-                                'isdayli': plan_feature.feature.isdayli,
-                                'iscredit': plan_feature.feature.iscredit,
-                                'iswithoutcredit': plan_feature.feature.iswithoutcredit
-                            }
-                        )
-                
-                # Start trial and update role if it's the first time
-                if Account.TRIALUSER in user.role:
-                    user.role = [Account.ADMIN]
-                    user.start_trial(14)
-                    user.save()
+                if free_plan_pricing:
+                    # Create subscription for the free plan
+                    subscription = Subscription.objects.create(
+                        company=company,
+                        plan_pricing=free_plan_pricing,
+                        is_active=True,
+                        end_date=timezone.now() + timezone.timedelta(days=14)  # 14 days for free plan
+                    )
                     
-        except Exception as e:
-            print(f"Error initializing app site billing: {str(e)}")
+                    # Create billing history for the free plan allocation
+                    BilingHistory.objects.create(
+                        company=company,
+                        plan_pricing=free_plan_pricing,
+                        feature=None,
+                        transaction_type="plan_allocation",
+                        price=0,
+                        credit=None
+                    )
+                    
+                    # Get all feature credits for the free plan
+                    plan_features = PlanFeatureCredit.objects.filter(plan=free_plan_pricing.plan)
+                    
+                    # Update or create credit wallet entries for each feature
+                    for plan_feature in plan_features:
+                        if plan_feature:
+                            CreditWallet.objects.update_or_create(
+                                company=company,
+                                feature=plan_feature.feature,
+                                defaults={
+                                    'total_credit': plan_feature.credit_limit,
+                                    'used_credit': 0,
+                                    'isdayli': plan_feature.feature.isdayli,
+                                    'iscredit': plan_feature.feature.iscredit,
+                                    'iswithoutcredit': plan_feature.feature.iswithoutcredit
+                                }
+                            )
+                    
+                    # Start trial and update role if it's the first time
+                    if Account.TRIALUSER in user.role:
+                        user.role = [Account.ADMIN]
+                        user.start_trial(14)
+                        user.save()
+                        
+            except Exception as e:
+                print(f"Error initializing app site billing: {str(e)}")
 
-    if company and not user.is_superuser and not company.is_ai_letter_site and (site == "is_ai_letter_site" or site == "ai_letter_site"):
+    if not company.is_ai_letter_site and (site == "is_ai_letter_site" or site == "ai_letter_site"):
         company.is_ai_letter_site = True
         company.save()
         try:
