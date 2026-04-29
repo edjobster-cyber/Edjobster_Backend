@@ -6,8 +6,6 @@ from rest_framework import routers
 from django.urls import include, path
 
 
-
-
 urlpatterns = [
     path('apply/', views.ApplyApi.as_view(), name='apply'),
     path('apply-job/', views.ApplyJobApi.as_view(), name='apply-job'),

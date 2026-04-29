@@ -1,6 +1,6 @@
 from job.models import Assesment
 from interview.models import Interview
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 from django.db.models import Q
 from .models import Country, NoteType, State, City, CompanyTags
 from .serializer import CountrySerializer, NoteTypeSerializer, StateSerializer, CitySerializer, CompanyTagsSerializer
@@ -214,7 +214,7 @@ def get_combined_timeline(request):
 
     user = request.user
     company = Company.getByUser(user)
-    today = timezone.now().date()
+    today = timezone.now()
 
     # Get days parameter from query string
     try:
@@ -223,18 +223,18 @@ def get_combined_timeline(request):
             days = int(days_param)
             if days == 0:  # Today only
                 days = 1
-                start_date = today
+                start_date = today.replace(hour=0, minute=0, second=0, microsecond=0)
             elif days == 1:  # Yesterday only
                 days = 1
-                start_date = today - timedelta(days=1)
+                start_date = (today - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
             else:
-                start_date = today - timedelta(days=days-1)  # Include today
+                start_date = (today - timedelta(days=days-1)).replace(hour=0, minute=0, second=0, microsecond=0)  # Include today
         else:
             days = 1
-            start_date = today
+            start_date = today.replace(hour=0, minute=0, second=0, microsecond=0)
     except (TypeError, ValueError):
         days = 1
-        start_date = today
+        start_date = today.replace(hour=0, minute=0, second=0, microsecond=0)
 
     if company:
         candidate_activities = CandidateTimeline.objects.filter(
@@ -253,11 +253,11 @@ def get_combined_timeline(request):
     if start_date:
         candidate_activities = candidate_activities.filter(
             activity_date__gte=start_date,
-            activity_date__lte=today
+            activity_date__lte=today.replace(hour=23, minute=59, second=59, microsecond=999999)
         )
         job_activities = job_activities.filter(
             activity_date__gte=start_date,
-            activity_date__lte=today
+            activity_date__lte=today.replace(hour=23, minute=59, second=59, microsecond=999999)
         )
     
     # Combine and sort activities
