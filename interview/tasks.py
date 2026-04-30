@@ -3,7 +3,8 @@ from django.utils import timezone
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
-from settings.models import Feature
+from settings.models import Feature, CreditWallet
+from settings.models import Subscription
 from settings.decorators import check_feature_availability, check_feature_access
 
 from .models import Interview, InterviewCandidateStatus, InterviewerStatus

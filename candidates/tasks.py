@@ -80,29 +80,44 @@ def send_reminder(obj, user, title, message, alert_type):
     if not user:
         return
     
+    company_id = getattr(user, 'company_id', None)
+    if not company_id:
+        return
+        
+    from account.models import Company
+    company = Company.objects.filter(id=company_id).first()
+    if not company:
+        return
+    
     if alert_type == 'POP-UP':
         # Avoid creating duplicate notifications for the same object in the same minute
         if not Notification.objects.filter(
-            user=user, 
+            company=company, 
             todo_type=obj.todo_type, 
             related_id=obj.id,
             created_at__gte=timezone.now() - timedelta(seconds=59)
         ).exists():
             Notification.objects.create(
-                user=user,
+                company=company,
                 title=title,
                 message=message,
                 todo_type=obj.todo_type,
                 related_id=obj.id
             )
-    elif alert_type == 'EMAIL':
-        send_reminder_email(user, title, message)
+            
+    # Send email if alert_type is explicitly EMAIL, or if the email_notification flag is true
+    force_email = getattr(obj, 'email_notification', False)
+    if alert_type == 'EMAIL' or force_email:
+        send_reminder_email(user, title, message, company)
 
-def send_reminder_email(user, title, message):
+def send_reminder_email(user, title, message, company=None):
     if not user.email:
         return
     
     email_settings = EmailSettings.objects.filter(company_id=user.company_id).order_by('-created_at').first()
+    
+    if not email_settings:
+        email_settings = EmailSettings.objects.filter(user_id=user).order_by('-created_at').first()
     
     try:
         if email_settings:
@@ -124,12 +139,17 @@ def send_reminder_email(user, title, message):
                 fail_silently=False
             )
         else:
+            if not company and user.company_id:
+                from account.models import Company
+                company = Company.objects.filter(id=user.company_id).first()
+                
+            from_email = company.email if company and company.email else getattr(settings, "DEFAULT_FROM_EMAIL", settings.EMAIL_HOST_USER)
             send_mail(
                 title,
                 message,
-                getattr(settings, "DEFAULT_FROM_EMAIL", settings.EMAIL_HOST_USER),
+                from_email,
                 [user.email],
                 fail_silently=False
             )
     except Exception as e:
-        print(f"Error sending reminder email for user {user.id}: {e}")
+        print(f"Error sending reminder email for user {user.id if hasattr(user, 'id') else getattr(user, 'account_id', 'unknown')}: {e}")

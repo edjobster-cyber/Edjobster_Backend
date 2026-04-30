@@ -445,7 +445,7 @@ def signInAccount(request):
     serialized_company = CompanySerializer(company)
     first_login = True if (getattr(user, 'last_login', None) is None and Account.TRIALUSER in user.role) else False
     needs_company_details = False
-    if not user.is_superuser:
+    if not user.is_superuser and company:
         if not company.is_app_site and site == "is_app_site":
             company.is_app_site = True
             company.save()
@@ -499,22 +499,22 @@ def signInAccount(request):
             except Exception as e:
                 print(f"Error initializing app site billing: {str(e)}")
 
-    if not company.is_ai_letter_site and (site == "is_ai_letter_site" or site == "ai_letter_site"):
-        company.is_ai_letter_site = True
-        company.save()
-        try:
-            from letters.models import LetterCreditWallet
-            wallet, created = LetterCreditWallet.objects.get_or_create(
-                company=company,
-                defaults={'total_credits': 10}
-            )
-            # If logging in for the first time on ai_letter_site and we are a trial user, start trial
-            if Account.TRIALUSER in user.role:
-                # For ai_letter_site, we also start the 14 day trial as it's their "first time login"
-                user.start_trial(14)
-                user.save()
-        except Exception as e:
-            print(f"Error initializing ai letter site billing: {str(e)}")
+        if not company.is_ai_letter_site and (site == "is_ai_letter_site" or site == "ai_letter_site"):
+            company.is_ai_letter_site = True
+            company.save()
+            try:
+                from letters.models import LetterCreditWallet
+                wallet, created = LetterCreditWallet.objects.get_or_create(
+                    company=company,
+                    defaults={'total_credits': 10}
+                )
+                # If logging in for the first time on ai_letter_site and we are a trial user, start trial
+                if Account.TRIALUSER in user.role:
+                    # For ai_letter_site, we also start the 14 day trial as it's their "first time login"
+                    user.start_trial(14)
+                    user.save()
+            except Exception as e:
+                print(f"Error initializing ai letter site billing: {str(e)}")
 
     if company:
         missing_fields = [

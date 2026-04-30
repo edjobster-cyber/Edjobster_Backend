@@ -1260,37 +1260,44 @@ class GmailSentEmailView2:
 class GmailAllEmailsView(APIView):
     def get(self, request, id):
         try:
+            from candidates.models import Candidate, Mail
             candidate = Candidate.objects.get(id=id)
-            target_email = candidate.webform_candidate_data['Personal Details']['email']
-
-            # Create instances of both views
-            receive_email_view = GmailReceiveEmailView2()
-            sent_email_view = GmailSentEmailView2()
-
-            # Use ThreadPoolExecutor to execute both methods concurrently
-            with ThreadPoolExecutor(max_workers=8) as executor:
-                future_receive = executor.submit(receive_email_view.fetch_received_emails, request, target_email)
-                future_sent = executor.submit(sent_email_view.fetch_sent_emails, request, target_email)
-
-                # Wait for the results and get the actual data
-                received_emails = future_receive.result()
-                sent_emails = future_sent.result()
-
-            # Extract the data from the Response objects
-            if isinstance(received_emails, Response):
-                received_emails = received_emails.data
-            if isinstance(sent_emails, Response):
-                sent_emails = sent_emails.data
+            
+            # Safely get target email
+            target_email = candidate.email
+            if not target_email and candidate.webform_candidate_data:
+                target_email = candidate.webform_candidate_data.get('Personal Details', {}).get('email')
                 
-            if not received_emails:
-                received_emails = None
-            if not sent_emails:
-                sent_emails = None
+            if not target_email:
+                return JsonResponse({"error": "Candidate email not found."}, status=400)
 
-            # Construct the response data
+            # Fetch sent emails (emails where candidate is the receiver)
+            sent_emails_qs = Mail.objects.filter(receiver__contains=[target_email]).order_by('-date_time')
+            sent_emails = []
+            for m in sent_emails_qs:
+                sent_emails.append({
+                    'subject': m.subject,
+                    'from': m.from_email or (m.sender.email if m.sender else ""),
+                    'to': ", ".join(m.receiver) if m.receiver else "",
+                    'date': m.date_time.strftime('%a, %d %b %Y %H:%M:%S %z'),
+                    'body': m.body
+                })
+                
+            # Fetch received emails (emails where candidate is the sender/from_email)
+            received_emails_qs = Mail.objects.filter(from_email=target_email).order_by('-date_time')
+            received_emails = []
+            for m in received_emails_qs:
+                received_emails.append({
+                    'subject': m.subject,
+                    'from': m.from_email,
+                    'to': ", ".join(m.receiver) if m.receiver else "",
+                    'date': m.date_time.strftime('%a, %d %b %Y %H:%M:%S %z'),
+                    'body': m.body
+                })
+
             response_data = {
-                'received_emails': received_emails,
-                'sent_emails': sent_emails
+                'received_emails': received_emails if received_emails else None,
+                'sent_emails': sent_emails if sent_emails else None
             }
 
             return JsonResponse(response_data)

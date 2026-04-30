@@ -3,8 +3,8 @@ from django.contrib import admin
 # Register your models here.
 from .models import (Candidate, Note, CandidateExperience, CandidateQualification, 
                     ApplicantWebForm, Mail, Tasks, EmailSettings, Events, Call, 
-                    SubjectSpecialization, Skill, Candidatewithoutlogin, CandidateTimeline,
-                    SavedJob, CandidateResume, CandidateProfile, RJMSAnalysis, CoresignalPreview, CoresignalCandidateStatus, CoresignalCandidateVisiteCompany)
+                    SubjectSpecialization, Skill, Candidatewithoutlogin, CandidateTimeline, 
+                    SavedJob, CandidateResume, CandidateProfile, RJMSAnalysis, CoresignalPreview, CoresignalCandidateStatus, CoresignalCandidateVisiteCompany, Notification)
 my_modules = [Candidate, CandidateExperience, CandidateQualification, ApplicantWebForm, Note, Mail]
 #Registering Candidate on admin panel
 
@@ -63,6 +63,13 @@ admin.site.register(SavedJob,SavedJobAdmin)
 admin.site.register(CandidateResume,CandidateResumeAdmin)
 admin.site.register(CandidateProfile,CandidateProfileAdmin)
 admin.site.register(RJMSAnalysis)
+
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'company', 'title', 'is_read', 'created_at')
+    list_filter = ('is_read', 'created_at')
+    search_fields = ('title', 'message')
+
+admin.site.register(Notification, NotificationAdmin)
 
 class CoresignalPreviewAdmin(admin.ModelAdmin):
     list_display = ('id', 'coresignal_id','is_list', 'created_at', 'updated_at')

@@ -3521,7 +3521,10 @@ class NotificationListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        notifications = Notification.objects.filter(user=request.user).order_by('-created_at')[:20]
+        if not getattr(request.user, 'company_id', None):
+            return Response({"error": "Company not found for user"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        notifications = Notification.objects.filter(company_id=request.user.company_id).order_by('-created_at')[:20]
         serializer = NotificationSerializer(notifications, many=True)
         return Response(serializer.data)
 
@@ -3530,8 +3533,11 @@ class MarkNotificationReadView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk):
+        if not getattr(request.user, 'company_id', None):
+            return Response({"error": "Company not found for user"}, status=status.HTTP_400_BAD_REQUEST)
+
         try:
-            notification = Notification.objects.get(pk=pk, user=request.user)
+            notification = Notification.objects.get(pk=pk, company_id=request.user.company_id)
             notification.is_read = True
             notification.save()
             return Response({"message": "Notification marked as read"})

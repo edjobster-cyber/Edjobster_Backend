@@ -606,6 +606,47 @@ class CoresignalCandidateStatusSerializer(serializers.ModelSerializer):
     #     return instance
 
 class NotificationSerializer(serializers.ModelSerializer):
+    related_data = serializers.SerializerMethodField()
+
     class Meta:
         model = Notification
         fields = '__all__'
+
+    def get_related_data(self, obj):
+        if not obj.related_id or not obj.todo_type:
+            return None
+        try:
+            if obj.todo_type == 'TASKS':
+                from .models import Tasks
+                task = Tasks.objects.get(id=obj.related_id)
+                data = TaskSerializer(task).data
+                if task.candidate:
+                    data['candidate_name'] = f"{task.candidate.webform_candidate_data['Personal Details']['first_name'] or ''} {task.candidate.webform_candidate_data['Personal Details']['last_name'] or ''}".strip()
+                return data
+            elif obj.todo_type == 'EVENTS':
+                from .models import Events
+                event = Events.objects.get(id=obj.related_id)
+                data = EventSerializer(event).data
+                if event.candidate:
+                    data['candidate_name'] = f"{event.candidate.webform_candidate_data['Personal Details']['first_name'] or ''} {event.candidate.webform_candidate_data['Personal Details']['last_name'] or ''}".strip()
+                return data
+            elif obj.todo_type == 'CALLS':
+                from .models import Call
+                call = Call.objects.get(id=obj.related_id)
+                data = CallSerializer(call).data
+                if call.candidate:
+                    data['candidate_name'] = f"{call.candidate.webform_candidate_data['Personal Details']['first_name'] or ''} {call.candidate.webform_candidate_data['Personal Details']['last_name'] or ''}".strip()
+                elif call.contact_name_candidate:
+                    data['contact_candidate_name'] = f"{call.contact_name_candidate.webform_candidate_data['Personal Details']['first_name'] or ''} {call.contact_name_candidate.webform_candidate_data['Personal Details']['last_name'] or ''}".strip()
+                return data
+            elif obj.todo_type == 'INTERVIEW':
+                from interview.models import Interview
+                from interview.serializer import InterviewListSerializer
+                interview = Interview.objects.get(id=obj.related_id)
+                data = InterviewListSerializer(interview).data
+                if interview.candidate:
+                    data['candidate_name'] = f"{interview.candidate.first_name or ''} {interview.candidate.last_name or ''}".strip()
+                return data
+        except Exception:
+            return None
+        return None
