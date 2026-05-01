@@ -2122,7 +2122,7 @@ def companyMembers(request):
     }
 
 def activateMember(request):
-    
+
     adminUser = request.user
     data = request.data
     print('activate >> ', data)
@@ -2130,10 +2130,10 @@ def activateMember(request):
     status = data.get('status', None)
     accountId = data.get('account_id', None)
 
-    if adminUser.role != Account.ADMIN:
+    if Account.ADMIN not in adminUser.role:
         return {
             'code': 400,
-            'msg': 'Only admin can add members'
+            'msg': 'Only admin can activate members'
         }
 
     print('activate >> ', adminUser.account_id, accountId)
@@ -2181,7 +2181,7 @@ def activateMember(request):
     }
 
 def approveMember(request):
- 
+
     adminUser = request.user
     data = request.data
     print('approveMember >> ', data)
@@ -2189,10 +2189,10 @@ def approveMember(request):
     status = data.get('status', None)
     accountId = data.get('account_id', None)
 
-    if adminUser.role != Account.ADMIN:
+    if Account.ADMIN not in adminUser.role:
         return {
             'code': 400,
-            'msg': 'Only admin can add members'
+            'msg': 'Only admin can approve members'
         }
 
     print('activate >> ', adminUser.account_id, accountId)
@@ -2380,7 +2380,7 @@ def activateEmail(tokenId):
 
 
 def approveVerifyMember(request):
- 
+
     adminUser = request.user
     data = request.data
     print('approving and Verifying >> ', data)
@@ -2388,10 +2388,10 @@ def approveVerifyMember(request):
     status = data.get('status', None)
     accountId = data.get('account_id', None)
 
-    if adminUser.role != Account.ADMIN:
+    if Account.ADMIN not in adminUser.role:
         return {
             'code': 400,
-            'msg': 'Only admin can add members'
+            'msg': 'Only admin can approve/verify members'
         }
 
     print('activate >> ', adminUser.account_id, accountId)

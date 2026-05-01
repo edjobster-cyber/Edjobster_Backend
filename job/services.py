@@ -79,7 +79,7 @@ def _compute_pricing(model_name: Optional[str], usage_obj) -> Optional[Dict]:
 
 class AIJobDescriptionService:
     def __init__(self):
-        self.client = OpenAI(api_key=API_KEY)
+        self.client = OpenAI(api_key=settings.OPENAI_API_KEY)
     
     def generate_job_description(self, job_data: Dict) -> Dict:
         """
@@ -325,7 +325,7 @@ Use HTML formatting like <ul>, <li>, <p>, <strong>, <br> for better presentation
 
 class AIAssessmentQuestionService:
     def __init__(self):
-        self.client = OpenAI(api_key=API_KEY)
+        self.client = OpenAI(api_key=settings.OPENAI_API_KEY)
     
     def generate_assessment_questions(self, job_data: Dict) -> Dict:
         """

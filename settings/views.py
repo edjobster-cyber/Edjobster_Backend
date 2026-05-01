@@ -1,5 +1,6 @@
 from pandas.io.clipboard import is_available
 from settings.models import BillingCycle
+from dateutil.relativedelta import relativedelta
 import email.header
 import logging
 from django.shortcuts import render, get_object_or_404, redirect
@@ -882,12 +883,14 @@ def _handle_plan_payment(payment, user, company, request):
     final_price = offer_price
         
     # Get or create subscription
+    billingcycle = request.data.get('billingCycle')
+    billing_cycle = BillingCycle.objects.get(id=billingcycle)
     subscriptions = Subscription.objects.filter(company=company)
     if subscriptions.exists():
         subscription = subscriptions.first()
         subscription.plan_pricing = plan_pricing
         subscription.is_active = True
-        subscription.end_date = timezone.now() + timezone.timedelta(days=30)  # Set 30 days from now
+        subscription.end_date = timezone.now() + relativedelta(months=billing_cycle.duration_in_months)  # Add exact months
         subscription.save()
         created = False
         
@@ -899,7 +902,7 @@ def _handle_plan_payment(payment, user, company, request):
             company=company,
             plan_pricing=plan_pricing,
             is_active=True,
-            end_date=timezone.now() + timezone.timedelta(days=30)
+            end_date=timezone.now() + relativedelta(months=billing_cycle.duration_in_months)
         )
         created = True
 

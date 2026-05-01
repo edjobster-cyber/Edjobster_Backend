@@ -900,7 +900,7 @@ class Subscription(models.Model):
 
 
     def __str__(self):
-        return f"{self.plan_pricing.plan.name}"
+        return f"{self.plan_pricing}"
 
 class CreditWallet(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

@@ -20,12 +20,21 @@ def deactivate_expired_subscriptions():
             end_date__isnull=False,
             end_date__lt=now
         )
-        
+
         count = expired_subscriptions.count()
         if count > 0:
+            # Get companies from expired subscriptions
+            expired_companies = list(expired_subscriptions.values_list('company_id', flat=True))
+
+            # Deactivate subscriptions
             expired_subscriptions.update(is_active=False)
+
+            # Remove all CreditWallet records for these companies
+            deleted_wallets = CreditWallet.objects.filter(company_id__in=expired_companies).delete()
+            logger.info(f"Deleted {deleted_wallets[0]} CreditWallet records for {len(expired_companies)} companies")
+
             logger.info(f"Deactivated {count} expired subscriptions")
-            return f"Deactivated {count} expired subscriptions"
+            return f"Deactivated {count} expired subscriptions and removed {deleted_wallets[0]} credit wallets"
         return "No expired subscriptions to deactivate"
     except Exception as e:
         logger.error(f"Error in deactivate_expired_subscriptions: {str(e)}", exc_info=True)
