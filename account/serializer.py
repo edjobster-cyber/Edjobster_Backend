@@ -99,8 +99,14 @@ class MemberSerializer(serializers.ModelSerializer):
         return value
 
     def validate_role(self, value):
-        if value not in [Account.ADMIN, Account.USER]:
-           raise serializers.ValidationError("Invalid role")
+        valid_roles = [Account.ADMIN, Account.USER]
+        if isinstance(value, list):
+            for role in value:
+                if role not in valid_roles:
+                    raise serializers.ValidationError("Invalid role")
+        else:
+            if value not in valid_roles:
+                raise serializers.ValidationError("Invalid role")
         return value
     
     def validate_email(self, value):

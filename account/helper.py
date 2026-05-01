@@ -22,6 +22,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
+from rest_framework import status
 from .zoho_client import ZohoCRMClient
 from .models import ZohoCRMHistory
 
@@ -1870,6 +1871,10 @@ def create_trial_user_from_lead(request):
 @deduct_credit_decorator(feature_code="company_user")
 def addMember(self, request):
 
+    # Convert role to list if it's a string
+    if 'role' in request.data and isinstance(request.data['role'], str):
+        request.data['role'] = [request.data['role']]
+
     serializers = MemberSerializer(data=request.data)
 
     if serializers.is_valid():
@@ -1890,7 +1895,7 @@ def addMember(self, request):
                         {"message": "Company not found."},
                         status=status.HTTP_404_NOT_FOUND
                     )
-        email_result = helper.send_verification_email(request, user, plain_password)
+        email_result = send_verification_email(request, user, plain_password)
 
         if email_result['code'] == 403:
             return {"message": email_result['message']}, status.HTTP_403_FORBIDDEN
