@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# API_KEY = "..." removed for security
+API_KEY = settings.OPENAI_API_KEY #removed for security
 
 def _compute_pricing(model_name: Optional[str], usage_obj) -> Optional[Dict]:
     """
